@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>MA50258: Applied Statistics</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Karim Anaya-Izquierdo" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <link href="libs/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# MA50258: Applied Statistics
+## Basics of R and RStudio
+### Dr. Karim Anaya-Izquierdo
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+## R
+
+In this course we will use `R`,  a free and open-source software environment for statistical computing and graphics.
+
+* Install `R` from CRAN, the Comprehensive R Archive Network  [here](https://cloud.r-project.org).  Choose a precompiled binary distribution for your operating system.
+
+* Launch `R`. You should see the console with the command line interpreter (&gt;) 
+
+* Close `R`
+
+---
+
+## RStudio
+
+RStudio provides a powerful user interface for `R`, called an integrated development environment (IDE). 
+
+
+* Install the free version of Rstudio desktop appropriate for your operating system, from  [here](https://rstudio.com/products/rstudio/download/) 
+
+* Launch RStudio. You should see something like this 
+
+---
+
+##RStudio
+
+Note the default panes:
+
+* Console (entire left)
+
+* Environment/History (tabbed in upper right)
+
+* Files/Plots/Packages/Help (tabbed in lower right)
+
+
+
+FYI: you can change the location of the panes, among many other things, see [here](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio)
+
+---
+
+## RStudio
+
+Place your cursor in the `R` console where you see `&gt;` and type 
+
+```r
+x&lt;-2+2
+```
+
+hit enter or return.
+
+Now type 
+
+
+```r
+x
+```
+
+and hit enter/return again. 
+
+If `[1] 4` prints to the screen, you have successfully installed `R` and RStudio!
+
+
+R is an interpreter! You enter commands line-by-line (as opposed to compiled languages like C++ or Fortran).
+
+The symbol `&gt;` in the console  means `R` is  ready for a command.
+
+
+---
+
+##R basics: packages 
+
+The version of `R` that you just installed is considered **base R**, which provides you with good but basic statistical computing and graphics powers. For analytical and graphical super-powers, you will need to install add-on **packages**, which are user-written, to extend/expand your `R` capabilities. 
+
+Packages can live in one of two places:
+
+*  [CRAN](https://cran.r-project.org/web/packages/available_packages_by_name.html) (which involves a thorough submission and review process), and thus are easy install using
+
+
+```r
+install.packages("name_of_package", dependencies = TRUE)
+```
+
+
+
+* Alternatively, packages may be available via GitHub, GitLab, Bitbucket, and Bioconductor . To download these packages, you first need to install the `devtools` and the `remotes` package
+
+
+```r
+# only do once
+install.packages(c("devtools","remotes"),dependencies = TRUE)
+```
+
+
+---
+
+##R basics: packages
+
+
+* To use an already installed package, you must load it first, by entering  
+
+
+```r
+library(name_of_package)
+```
+leaving the name of the package bare. You only need to do this once per session.
+
+* If you need help,  type 
+
+```r
+help(name_of_package)
+```
+or
+
+```r
+?name_of_package
+```
+
+* If you want the citation for a package (and you should give credit where credit is due), ask `R` by typing
+
+```r
+citation("name_of_package")
+```
+
+
+---
+
+##R basics: assignments
+
+
+ `R` statements where you create new objects are  “assignments” and  have this form:
+
+```r
+objectName &lt;- value
+x &lt;- 4
+```
+and in your head you should hear,  “x gets 4”!
+
+You can also use `=` for assignments but is not recommended since it will create confusion later. 
+
+
+Object names must start with a letter, and can only contain letters, numbers, the character `.` and the character `_`. 
+
+You want your object names to be descriptive, so you’ll need a convention for multiple words. I recommend `snake_case` where you separate lowercase words with the symbol `_`.
+
+
+```r
+i_use_snake_case
+otherPeopleUseCamelCase
+some.people.use.periods
+And_aFew.People_RENOUNCEconvention
+```
+
+
+---
+
+## R basics: assignment examples
+
+
+
+```r
+#c combines pieces of data together
+my_family &lt;- c("Karim", "Hadid", "Rhiannon", "Cadel") # combine strings
+my_family
+## [1] "Karim"    "Hadid"    "Rhiannon" "Cadel"
+```
+
+
+```r
+one_to_five &lt;- c(1,2,3,4,5) # combine numbers
+one_to_five
+## [1] 1 2 3 4 5
+```
+
+
+
+
+```r
+# Rename  objects already defined
+my_months &lt;- month.name 
+# month.name is a vector with the month's names  already built-in in R
+my_months
+##  [1] "January"   "February"  "March"     "April"     "May"       "June"     
+##  [7] "July"      "August"    "September" "October"   "November"  "December"
+```
+
+
+
+---
+
+##R basics: copy + paste
+
+
+
+Note that `R` commands in this presentation  are enclosed inside a light grey box.
+
+
+```r
+x &lt;- 4
+```
+
+Hover your mouse pointer over anywhere in the box and the "Copy Code" button should appear!
+
+Clicking this button copies the commands inside the box into your clipboard so that you can paste them into your `R` console to see the results! 
+
+You can repeat this process with all of the commands in this presentation!
+
+---
+
+##R basics: assignments
+
+
+You will type the assignment symbol `&lt;-` many times and this can be a real pain!
+
+You can use RStudio’s keyboard shortcut: `Alt + -` in Windows and in `Option + - ` Mac (the `+` means _and_, not the `+` key).
+
+A list of RStudio keyboard shortcuts is [here](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts).
+
+Note that RStudio automatically surrounds `&lt;-` with spaces, which demonstrates a useful code formatting practice. 
+
+Code is miserable to read on a good day. Give your eyes a break and use spaces.
+
+
+
+---
+
+##R basics: results
+
+
+You may already noticed that a `[1]` appears next (on the left) to your results. 
+
+`R` is just letting you know that this line begins with the first value in your result. 
+
+Some commands return more than one value, and their results may fill up multiple lines. 
+
+
+```r
+my_months
+##  [1] "January"   "February"  "March"     "April"     "May"       "June"     
+##  [7] "July"      "August"    "September" "October"   "November"  "December"
+```
+
+Note that a new bracketed number appears at the start of the second line of output. This numbers just mean that the second line begins with the 7th value in the result.
+
+You can mostly ignore the numbers that appear in brackets.
+
+---
+
+##R basics: comments
+
+Text behind a `#` is a comment that `R` will ignore. 
+Comments are helpful to you and to whoever is reading your code (e.g. your lecturer or peers!).
+
+
+```r
+rep(one_to_five,2) # 'rep' repeats one_to_five twice
+##  [1] 1 2 3 4 5 1 2 3 4 5
+one_to_five_twice &lt;-rep(one_to_five,2)# now save it as new object
+```
+
+
+```r
+# This is a simpler way to do a sequence
+one_to_five &lt;- 1:5
+# I can say whatever I want here...
+```
+
+
+
+```r
+but not here
+## Error: &lt;text&gt;:1:5: unexpected symbol
+## 1: but not
+##         ^
+```
+
+RStudio helps you (de)comment selected lines with `Ctrl+Shift+C` (Windows and Linux) or `Command+Shift+C` (Mac).
+
+---
+
+##R basics: errors
+
+
+
+Make an assignment
+
+
+```r
+RStudio_rocks &lt;- 5^2
+```
+
+Let’s try to inspect it:
+
+
+```r
+Rstudío_rocks
+## Error in eval(expr, envir, enclos): object 'Rstudío_rocks' not found
+rstudio_rocks
+## Error in eval(expr, envir, enclos): object 'rstudio_rocks' not found
+```
+
+Typos matter. Case matters. Take extra care when typing!
+
+
+---
+
+##R basics: help
+
+You can help in two ways:
+
+* Type `help(something)`, or
+
+* Type `?something`
+
+
+```r
+help(c)
+?rep
+```
+
+and then look in the bottom right panel of RStudio!
+
+
+
+---
+
+##R  data types: integer and double
+
+* Numeric type 1: Integer 
+
+
+```r
+typeof(one_to_five)
+## [1] "integer"
+```
+
+
+* Numeric type 2: Double
+
+```r
+typeof(pi) # pi is the famous mathematical constant
+## [1] "double"
+pi_seq&lt;-c(pi,2*pi,3*pi)
+pi_seq
+## [1] 3.141593 6.283185 9.424778
+typeof(pi_seq)
+## [1] "double"
+```
+
+
+---
+
+##R  data types: integer and double
+
+
+Note that `R` will not save a whole number as an integer by default unless you type the number followed by an uppercase L 
+
+
+```r
+typeof(c(3,4))
+## [1] "double"
+typeof(c(3L,4L))
+## [1] "integer"
+```
+
+We will rarely use this!
+---
+
+##R  data types: character
+
+`R` can handle character (e.g. text) data
+
+
+```r
+group_marks &lt;- c("second class","second class","first class")
+typeof(group_marks)
+## [1] "character"
+```
+
+
+There is no difference in using the symbols `'` or `"` when creating character objects.
+
+
+```r
+typeof("hello")
+## [1] "character"
+typeof('hello')
+## [1] "character"
+```
+
+
+
+
+
+---
+
+## R  data types: logical
+
+`R` can also handle logical (True or False) data
+
+
+```r
+group_marks
+## [1] "second class" "second class" "first class"
+# is group_marks equal to "first class"- T or F?
+is_first_class &lt;- (group_marks == "first class")
+is_first_class
+## [1] FALSE FALSE  TRUE
+typeof(is_first_class) 
+## [1] "logical"
+```
+
+
+
+
+---
+
+##R  data types: logical
+
+Another example:
+
+
+```r
+is_less_than_three &lt;- (one_to_five &lt; 3)
+is_less_than_three
+## [1]  TRUE  TRUE FALSE FALSE FALSE
+typeof(is_less_than_three)
+## [1] "logical"
+```
+
+
+
+
+---
+
+##R objects: atomic vectors
+
+
+
+An atomic vector is just a simple vector of data. You can make an atomic vector by grouping some values of data together with the command `c`.
+
+All of the previous vector objects defined are atomic vectors!
+
+`is.vector` tests whether an object is an atomic vector. It returns `TRUE` if the object is an atomic vector and `FALSE` otherwise.
+
+
+
+```r
+is.vector(my_family)
+## [1] TRUE
+is.vector(is_first_class)
+## [1] TRUE
+is.vector(4)
+## [1] TRUE
+```
+
+`R` saves single values as an atomic vector!
+
+---
+
+##R  element-wise execution
+
+We can perform operations with vectors, for example
+
+
+```r
+2*one_to_five
+## [1]  2  4  6  8 10
+one_to_five^3
+## [1]   1   8  27  64 125
+```
+
+`R` uses _element-wise_ execution. 
+
+When `R` manipulates a vector, it will apply the same operation to each element in the vector. 
+
+---
+
+##R  element-wise execution
+
+
+When `R` performs operations that involve two vectors, it will perform a sequence of individual operations so that: 
+
+* the first element of vector 1 operates with the first element of vector 2, 
+
+* the second element of vector 1 operates with the second element of vector 2  and 
+
+* so on and so forth. 
+
+For example:
+
+
+```r
+one_to_five+6:10
+## [1]  7  9 11 13 15
+
+
+is_larger_than_one &lt;- (one_to_five &gt;1)
+
+is_larger_than_one &amp; is_less_than_three
+## [1] FALSE  TRUE FALSE FALSE FALSE
+```
+
+
+
+---
+
+##R objects: recycling
+
+
+If  `R` is given two vectors of unequal lengths, it will repeat the shorter vector  until it is as long as the longer vector, and then perform the operation element-wise. 
+
+
+```r
+one_to_five+1 
+## [1] 2 3 4 5 6
+one_to_five &gt; 4
+## [1] FALSE FALSE FALSE FALSE  TRUE
+```
+
+
+If the length of the short vector does not divide evenly into the length of the long vector, `R` will return a _warning_ message. For example: 
+
+
+```r
+one_to_five+c(4,5)
+## [1] 5 7 7 9 9
+```
+
+
+ 
+
+This behaviour is known as *vector recycling* and you should be mindful of it when performing operations involving two or more vectors!
+
+---
+
+## R operations on logical vectors
+
+There are other operators that act on logical atomic vectors. For example
+
+
+```r
+is_less_than_three
+## [1]  TRUE  TRUE FALSE FALSE FALSE
+!is_less_than_three # negation 
+## [1] FALSE FALSE  TRUE  TRUE  TRUE
+# see ?Logic for more operations
+```
+
+There are more operations to compare atomic vectors that return a logical vector. These are called _relational operations_. For example
+
+
+```r
+is_not_equal_to_three&lt;-one_to_five != 3
+is_not_equal_to_three
+## [1]  TRUE  TRUE FALSE  TRUE  TRUE
+# see ?Comparison for more relational operation
+```
+
+
+
+---
+
+## R attributes
+
+An `attribute` is a piece of information that you can attach to an atomic vector (or in fact to any `R` object!) 
+
+An attribute will not affect the values of the object.
+
+We can think of attributes as “metadata”; it is just a convenient place to put information associated with an object
+
+
+An atomic vector, like `group_marks`, will not have any attributes unless you give it some:
+
+
+```r
+attributes(group_marks)
+## NULL
+```
+
+The most common attributes to give to an atomic vector are: 
+
+* names
+
+* dimensions, and 
+
+* classes
+
+
+---
+
+## R attributes: names
+
+
+
+```r
+names(group_marks)
+## NULL
+names(group_marks)&lt;-c("John","James","Julian")
+group_marks
+##           John          James         Julian 
+## "second class" "second class"  "first class"
+attributes(group_marks)
+## $names
+## [1] "John"   "James"  "Julian"
+```
+
+The atomic vector `group_marks` has now a `names` attribute attached to it!
+
+---
+
+## R attributes: dimensions
+
+You can transform an atomic vector into an array by giving it a `dim` (dimension) attribute.
+
+To do this, set the `dim` attribute to a vector and `R` will reorganize the elements of the vector
+
+
+```r
+dim(one_to_five_twice)&lt;-c(5,2)
+one_to_five_twice
+##      [,1] [,2]
+## [1,]    1    1
+## [2,]    2    2
+## [3,]    3    3
+## [4,]    4    4
+## [5,]    5    5
+attributes(one_to_five_twice)
+## $dim
+## [1] 5 2
+```
+
+`R` will always use the first value in `dim` for the number of rows and the second value for the number of columns!
+
+
+---
+## R attributes: dimensions
+
+If we swap the dimensions we get:
+
+
+```r
+dim(one_to_five_twice)&lt;-c(2,5)
+one_to_five_twice
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    3    5    2    4
+## [2,]    2    4    1    3    5
+```
+
+Note you do not have  control over how `R` reorganizes the values into rows and columns.  `R` always fills up each matrix by columns, instead of by rows. 
+
+To have more control over this process, you can use one of the functions, `matrix` or `array`
+
+---
+
+## R objects: matrices 
+
+Matrices store values in a two-dimensional array. 
+
+To create one, first give `matrix` an atomic vector to reorganise into a matrix. 
+
+
+```r
+?matrix # have a look at the help for 'matrix'
+matrix(my_family,nrow=2,byrow = T)
+##      [,1]       [,2]   
+## [1,] "Karim"    "Hadid"
+## [2,] "Rhiannon" "Cadel"
+matrix(one_to_five_twice,nrow=2,byrow = T)
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    2    3    4    5
+## [2,]    1    2    3    4    5
+```
+
+
+---
+
+## R objects:  arrays
+
+To create a higher dimensional array, you can use `array` and similar to `matrix` you provide an atomic vector as the first argument, and a vector of dimensions as the second argument, now called `dim`.
+
+A simple example of a three-dimensional array:
+
+
+```r
+?array # have a look at the help for 'array'
+my_array&lt;-array(1:8,dim=c(2,2,2))
+my_array
+## , , 1
+## 
+##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4
+## 
+## , , 2
+## 
+##      [,1] [,2]
+## [1,]    5    7
+## [2,]    6    8
+```
+
+
+---
+
+## R attributes: classes
+
+Classes are also attributes of an `R` object.
+
+For example, changing the dimensions of your object will not change the type of the object, but it will change the object’s `class` attribute
+
+
+```r
+one_to_six_twice&lt;-rep(1:6,2)
+one_to_six_twice
+##  [1] 1 2 3 4 5 6 1 2 3 4 5 6
+class(one_to_six_twice)
+## [1] "integer"
+one_to_six_twice&lt;-matrix(one_to_six_twice,nrow=4,byrow = T)
+class(one_to_six_twice)
+## [1] "matrix" "array"
+```
+
+---
+
+## R attributes: classes
+
+Every element in the matrix is still an integer, but the elements have been arranged into a new structure. 
+
+
+```r
+one_to_six_twice
+##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    4    5    6
+## [3,]    1    2    3
+## [4,]    4    5    6
+typeof(one_to_six_twice)
+## [1] "integer"
+```
+
+
+`R` added a class attribute to `one_to_six_twice` when you changed its dimensions.
+
+This class describes the object's new format!
+
+---
+
+## R attributes: classes
+
+An object’s `class` attribute will not always appear when you run `attributes`; 
+
+```r
+attributes(one_to_six_twice)
+## $dim
+## [1] 4 3
+```
+
+
+you may need to specifically search for it with `class`:
+
+
+```r
+class(one_to_five_twice)
+## [1] "matrix" "array"
+```
+
+
+You can apply `class` to objects that do not have a `class` attribute. `class` will return a value based on the object’s atomic type. 
+
+Notice that the `class` of a double is `numeric` which is a bit odd but you will get use to it!
+
+
+
+```r
+c(typeof(pi),class(pi))
+## [1] "double"  "numeric"
+```
+
+
+
+---
+
+## R objects: factors
+
+Factors are the way `R`  stores categorical information.
+To make a factor, pass an atomic vector into the `factor` function.
+
+
+```r
+group_marks_fct &lt;- factor(group_marks)
+```
+
+`factor` adds a `levels` attribute to the vector, which contains a set of labels for displaying the factor values, and a `class` attribute, which contains the `class` factor.
+
+
+```r
+attributes(group_marks_fct)
+## $names
+## [1] "John"   "James"  "Julian"
+## 
+## $levels
+## [1] "first class"  "second class"
+## 
+## $class
+## [1] "factor"
+```
+
+
+---
+
+## R objects: factors
+
+`factor` recodes  the data in the vector as integers and store the results in an integer vector. 
+
+
+```r
+typeof(group_marks_fct)
+## [1] "integer"
+```
+
+You can see exactly how `R` is storing the factor with `unclass`
+
+
+```r
+unclass(group_marks_fct)
+##   John  James Julian 
+##      2      2      1 
+## attr(,"levels")
+## [1] "first class"  "second class"
+```
+
+
+`R` uses the `levels` attribute when it displays the factor. By default, the levels of a factor are ordered alphabetically  so here it displays each 1 as `first class`, the first label in the levels vector, and each 2 as `second class`, the second label. 
+
+
+---
+
+## R objects: factors
+
+
+
+Factors make it easy to put categorical variables into a statistical model because the variables are already coded as numbers
+
+However, factors can be confusing since they look like character strings but behave like integers!
+
+`R` will often try to convert character strings to factors when you load and create new data 
+
+In general, is better if you do not let `R` make factors until you ask for them. We will deal with this this later! 
+
+We will use factors quite a lot!
+
+---
+
+## R data types: coercion
+
+
+Take care when combining vectors of different  types!
+
+
+```r
+my_stuff &lt;- c(10, group_marks)
+my_stuff
+##                          John          James         Julian 
+##           "10" "second class" "second class"  "first class"
+```
+
+
+```r
+typeof(my_stuff)
+## [1] "character"
+```
+
+The numeric entry `10` has been coerced from `double`  to `character` type!
+
+
+If a character string is present in an atomic vector, `R` will convert everything else in the vector to character strings!
+
+---
+
+## R data types: coercion
+
+If a vector only contains logicals and numbers, `R` will convert the logicals to numbers; every `TRUE` becomes a 1, and every `FALSE` becomes a 0
+
+
+```r
+is_first_class
+## [1] FALSE FALSE  TRUE
+c(is_first_class,3)
+## [1] 0 0 1 3
+```
+
+
+---
+
+## R objects: lists
+
+We can avoid coercion by using lists!
+
+Lists are like atomic vectors because they group data into a one-dimensional set.
+
+However, lists can hold objects of different types!
+
+We can create a list with the `list` function
+
+
+```r
+my_list&lt;-list(c("Rhiannon","Cadel"),c(11,8),c(FALSE,TRUE))
+my_list
+## [[1]]
+## [1] "Rhiannon" "Cadel"   
+## 
+## [[2]]
+## [1] 11  8
+## 
+## [[3]]
+## [1] FALSE  TRUE
+```
+
+The double-bracketed indices tell you which element of the list is being displayed. 
+
+
+---
+
+## R objects: lists
+
+We can add attributes to a list. For example, we can give a name to each object on a list.
+
+
+```r
+names(my_list)&lt;-c("name","age","is_grumpy")
+my_list
+## $name
+## [1] "Rhiannon" "Cadel"   
+## 
+## $age
+## [1] 11  8
+## 
+## $is_grumpy
+## [1] FALSE  TRUE
+```
+
+Lists are a basic type of object in `R`, just like atomic vectors. Lists are used as building blocks to create  more spohisticated types of `R` objects.
+
+The structure of lists can become quite complicated, but this flexibility makes lists a useful all-purpose storage tool in `R`: you can group together anything with a list!
+
+
+
+---
+
+## R  functions
+
+
+
+where am i going to put the script _stuff_?? avoid alltogether
+
+mayble include comparators with logicals cheatsheets?
+
+
+We have used many built-in `R` functions so far:
+`rep`, `names`, `attributes`, `class`, etc.
+Functions in `R` are used as follows:
+
+
+```r
+functionName(arg1 = val1, arg2 = val2, arg3 = val3 and so on)
+```
+Not all functions have (or require) arguments!
+
+
+
+```r
+date()
+## [1] "Wed Jul 14 16:12:00 2021"
+```
+
+
+---
+
+## R  functions
+
+
+Consider for example a function to draw a random sample of size 2 from the vector `1:100` without replacement.
+
+
+
+```r
+?sample # have a look at the help for 'sample'
+sample(x = 1:100, size = 2) # 'sample' is a built-in function in base R
+## [1] 50 94
+```
+
+Arguments like `replace` are considered optional because they come with a default value,  `replace = FALSE`. 
+
+You can pass a new value to this optional argument  if you want (`replace = TRUE` and the sample will be drawn with replacement) and `R` will use the default value if you do not (the sample will be drawn without replacement).
+
+---
+
+## R  functions
+
+Every argument in every `R` function has a name. You can specify which data should be assigned to which argument by setting a name equal to data, as in 
+
+
+```r
+sample(x = 1:3, size = 2,replace = TRUE)
+## [1] 2 3
+```
+
+
+This becomes important as you begin to pass multiple arguments to the same function; names help you avoid passing the wrong data to the wrong argument. 
+
+However, using argument names is optional! You may have noticed already that we have barely used the names of the arguments in the functions we have used so far.
+
+---
+
+## R  functions
+
+Consider another example
+
+
+```r
+?seq # have a look at the help for 'seq'
+seq(1,10) # 'seq' is a built-in function in base R
+##  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+
+The above shows how `R` resolves function arguments. You can always specify argument values in `arg = value` form (e.g. `seq(from = 1,to = 10)`). But if you do not, `R` attempts to resolve by position. 
+
+In `seq(1,10) ` it is assumed that we want a sequence `from ` 1  `to` 10. Since we didn’t specify the step size `by`, its default value  is used, which ends up being 1 in this case. 
+
+For functions you call often, you might use this resolve by position for the first argument or maybe the first two. After that, you can  use `arg = value`, e.g. 
+
+
+```r
+seq(1,10,by = 2) 
+## [1] 1 3 5 7 9
+```
+
+---
+
+## R  functions
+
+
+
+You can nest many functions
+
+
+```r
+exp(mean(log(c(3,12))))
+## [1] 6
+```
+
+When you nest functions together, `R` will resolve them from the innermost operation to the outermost.
+
+---
+
+## R  functions
+
+Functions can come from:
+
+* base `R` (these functions are "built in")
+
+* `R` packages (will talk about these later)
+
+* you (you will build your own functions!)
+
+
+
+
+
+
+
+---
+
+## Writing your own R functions
+
+Every function in `R` has three basic parts: 
+
+* a name, 
+
+* a body of code, and 
+
+* a set of arguments 
+
+To make your own function, you need to replicate these parts and store them in an `R` object, which you can do with the function `function`
+
+
+
+```r
+# our own function to compute average of two numbers
+avg &lt;- function(a,b) {
+  res &lt;- (a+b)/2
+  res
+}
+avg(3,4)
+## [1] 3.5
+```
+
+---
+
+## Writing your own R functions
+
+
+```r
+# our own function to compute average of a vector
+my_mean &lt;- function(vect) {
+  res &lt;- sum(vect)/length(vect)
+  # used tow built-in functions: 'sum' and 'length'
+* res
+}
+my_mean(1:100)
+## [1] 50.5
+```
+
+The code that you place inside inside the brackets `{}` is the body of the function. 
+
+When you run a function, `R` will execute all of the code in the body and then return the result of the &lt;mark&gt;last line of code&lt;/mark&gt;. 
+
+If the last line of code does not return a value, neither will your function, so you want to ensure that your final line of code returns a value!
+
+
+---
+
+## R objects: NA's
+
+Missing values are represented in `R` by the symbol `NA` (e.g.Not Available)
+
+
+```r
+one_to_five_NA &lt;- c(one_to_five, NA)
+typeof(one_to_five_NA)
+## [1] "integer"
+one_to_five_NA*3
+## [1]  3  6  9 12 15 NA
+max(one_to_five_NA )
+## [1] NA
+```
+
+Note that if a value in a set of numbers is NA (not available) then we cannot know for sure which is the maximum, hence `max` returns `NA`!
+---
+
+## R objects: NA's
+
+
+```r
+max(one_to_five_NA )
+## [1] NA
+mean(one_to_five_NA )
+## [1] NA
+```
+
+
+This can be corrected in this case!
+
+
+```r
+?max # have a look at the help for 'max' and 'mean'
+?mean
+max(one_to_five_NA, na.rm = TRUE)
+## [1] 5
+mean(one_to_five_NA, na.rm = TRUE)
+## [1] 3
+```
+
+
+
+
+
+---
+
+## R objects: data frames
+
+Data frames are the two-dimensional version of a list. They are the most useful storage structure for data analysis and therefore most data analysis in `R` are centered around data frames.
+
+You can think of a data frame as `R`’s equivalent to the Excel spreadsheet because it stores data in a similar format.
+ 
+Data frames group vectors together into a two-dimensional table. Each vector becomes a column in the table. 
+
+Each column of a data frame can contain a different type of data; but within a column, every cell must be the same type of data.
+
+Most functions for inference, modelling, and plotting in `R` are happy to be passed a data frame via a `data = data_frame_name ` argument. 
+ 
+---
+ 
+## R objects: data frames 
+ 
+ 
+We will not do this often but you can create a data frame by hand   with the `data.frame` function. 
+
+Give `data.frame` any number of vectors, each separated with a comma. Each vector should be set equal to a name that describes the vector. `data.frame` will turn each vector into a column of the new data frame
+
+
+
+```r
+df &lt;- data.frame(name  = c("Jose","Maria","Miguel"),  
+                 age   = c(19,21,18), 
+                 height= c(1.69,1.78,1.72))
+df
+##     name age height
+## 1   Jose  19   1.69
+## 2  Maria  21   1.78
+## 3 Miguel  18   1.72
+class(df)
+## [1] "data.frame"
+attributes(df)
+## $names
+## [1] "name"   "age"    "height"
+## 
+## $class
+## [1] "data.frame"
+## 
+## $row.names
+## [1] 1 2 3
+```
+
+---
+ 
+## R objects: data frames 
+
+The newly created object is of class `data.frame` and has been endowed with a set of attributes.
+
+
+```r
+class(df)
+## [1] "data.frame"
+attributes(df)
+## $names
+## [1] "name"   "age"    "height"
+## 
+## $class
+## [1] "data.frame"
+## 
+## $row.names
+## [1] 1 2 3
+```
+
+
+---
+
+## R objects: data frames
+
+Let's try a larger data frame. The `iris` data frame is built in inside `R` so there is no need to load it!
+
+The `iris`  data set contains the measurements (in centimeters) of the variables: sepal length and width and petal length and width, respectively, for 50 flowers from each of 3 species of iris. 
+
+
+
+```r
+?iris # read more about the 'iris' data frame 
+n &lt;- 5
+head(iris,n) 
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+# 'head' only displays the first n rows of the data frame, see ?head
+```
+
+We could print the whole `iris` dataset to the screen. However, you might not want to do this, because large datasets just fill up the console and provide little insight.
+
+
+---
+
+## R objects: data frames
+
+
+```r
+str(iris)
+## 'data.frame':	150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+```
+
+
+
+`str`  provides a short but sensible description of almost any object in `R`. 
+
+For data frames, `str` provide basic information such as:
+
+* the number of rows (observations) 
+
+* the number of columns (variables) 
+
+* the names of the variables 
+
+* the class of the variables  
+
+* the first few values of each variable
+
+
+---
+
+## R objects: data frames
+
+
+We can extract the same  pieces of information individually  with different functions as follows:
+
+
+```r
+class(iris)
+## [1] "data.frame"
+c(nrow(iris),ncol(iris))
+## [1] 150   5
+dim(iris)
+## [1] 150   5
+names(iris)
+## [1] "Sepal.Length" "Sepal.Width"  "Petal.Length" "Petal.Width"  "Species"
+```
+
+---
+
+## R objects: data frames
+
+If you want to pull out a single variable, you can use `$` or `[[`. 
+
+* `[[` can extract by name or position 
+
+* `$` only extracts by name 
+
+
+```r
+# Extract by name
+df$age
+## [1] 19 21 18
+df[["age"]]
+## [1] 19 21 18
+# Extract by position
+df[[2]]
+## [1] 19 21 18
+```
+
+
+---
+
+## R objects: data frames
+
+A statistical overview of the whole data frame  can be obtained with `summary`:
+
+
+```r
+summary(iris)
+##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+##  Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+##  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+##        Species  
+##  setosa    :50  
+##  versicolor:50  
+##  virginica :50  
+##                 
+##                 
+## 
+```
+
+ `Min. ` and `Max. ` are the minimum and maximum values, respectively.
+
+`1st Qu.` `Median` and `3rd Qu.` are the first quartile, median (second quartile) and third quartile values, respectively. See [here](https://en.wikipedia.org/wiki/Quartile) to remind you about quartiles!
+
+---
+
+
+
+
+## R objects: data frames
+
+
+To specify a single variable from a data frame, use the dollar sign `$`. 
+
+
+```r
+
+head(iris$Sepal.Length,3) # first 3 values of `Sepal.Length`
+## [1] 5.1 4.9 4.7
+
+class(iris$Sepal.Length) # `Sepal.Length` is a numeric variable
+## [1] "numeric"
+
+summary(iris$Sepal.Length) # Statistical summaries of a single variable
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   4.300   5.100   5.800   5.843   6.400   7.900
+```
+
+
+---
+
+## R objects: data frames
+
+
+```r
+head(iris$Species,4) # first 4 values of `Species`
+## [1] setosa setosa setosa setosa
+## Levels: setosa versicolor virginica
+
+class(iris$Species) # variable `Species` is a factor
+## [1] "factor"
+
+levels(iris$Species) # all levels of the factor
+## [1] "setosa"     "versicolor" "virginica"
+
+summary(iris$Species) # number of observations in each level
+##     setosa versicolor  virginica 
+##         50         50         50
+```
+
+Note the difference in the output of `summary` for a numeric variable as opposed to a factor variable!
+
+
+---
+
+
+
+## R  workspace
+
+Now look at your workspace – in the upper right panel in the Environment tab.
+
+
+
+
+The workspace is where user-defined objects accumulate. You can  get a listing of these objects with `objects`
+
+
+```r
+objects()
+##  [1] "avg"                   "df"                    "group_marks"          
+##  [4] "group_marks_fct"       "is_first_class"        "is_larger_than_one"   
+##  [7] "is_less_than_three"    "is_not_equal_to_three" "my_array"             
+## [10] "my_family"             "my_list"               "my_mean"              
+## [13] "my_months"             "my_stuff"              "n"                    
+## [16] "one_to_five"           "one_to_five_NA"        "one_to_five_twice"    
+## [19] "one_to_six_twice"      "pi_seq"                "RStudio_rocks"        
+## [22] "x"
+```
+
+---
+
+## R  workspace
+
+If you want to remove the object named `x`, you can do this:
+
+
+```r
+rm(x)
+```
+
+
+To remove everything you can use:
+
+
+```r
+rm(list = ls())
+```
+
+
+or click the broom in RStudio’s Environment panel
+
+
+
+---
+
+## R  workspace
+
+
+ When you quit R/RStudio, either from the menu, using a keyboard shortcut, or by typing `q()` in the console. You will get a prompt like this:
+
+Save workspace image to ~/.Rdata?
+
+Note where the workspace image is to be saved and then click “Save”. Visit the directory where image was saved and verify there is a file named .RData. You will also see a file .Rhistory, holding all the commands from  your recent session.
+
+Restart RStudio. In the console you will see a line like this:
+
+```r
+[Workspace loaded from ~/.RData]
+```
+
+indicating that your workspace has been restored. Look in the workspace pane and you will see the same objects as before. In the History tab of the same pane, you should also see your command history. You’re back in business.
+
+This way of starting and stopping work will not serve you well in the future!  For this reason  it is strongly recommended to change RStudio workspace preferences as described in the next slide!
+
+We will use a more efficient workflow based on "RStudio projects" which we will described later!
+
+---
+
+## RStudio: workspace preferences 
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

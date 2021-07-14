@@ -1,0 +1,105 @@
+---
+title: 'MA40198: Applied Statistical Inference'
+subtitle: 'Question sheet 1: Line-search optimisation methods'
+output:
+  html_document:
+    theme: flatly
+    toc: TRUE
+    toc_float: TRUE
+    includes:
+      in_header: mathjax_header.html
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,attr.source='.numberLines')
+library(tidyverse)
+```
+
+```{css, echo=FALSE}
+p {
+  font-size: 20px;
+}
+```
+
+
+This sheet is about gaining a solid understanding of simple line search  optimisation methods, by coding up modified Newton's algorithm, to optimise some relevant statistical functions using real data. 
+
+
+## COVID-19 deaths in the United Kingdom
+
+Read first [Appendix A.1](https://moodle.bath.ac.uk/pluginfile.php/1607293/mod_resource/content/5/_book/datasets-and-models.html#covid-19-deaths-in-the-united-kingdom) of the lecture notes where an introduction to the dataset for this sheet and its statistical modelling is given. A quick summary is given below.
+
+This [dataset](https://people.bath.ac.uk/kai21/ASI/data/COVID19_MARCH_JUNE.csv) contains  the number of age-specific deaths due to COVID-19^[Figures for deaths involving COVID-19 show the number of deaths involving coronavirus (COVID-19), based on any mention of COVID-19 on the death certificate.], split by sex, in England and Wales between 7 March and 26 June 2020.
+The age-specific refers to 5-year age groups starting from 10 years of age , e.g. 10-14, 15-19, ... up until 85-89 with the last age group being 90 years of age or over. For simplicity, each age  group is identified in the dataset by the mid-age point. For example, the age group 20-24 is represented by 22 and the last age group of 90 or over is represented by 92.5.  The dataset also contains the  total population in each age group. This is order to obatin mortality rates per 100,000 people. The records are based on the date each death had occurred rather than when the death was registered. Source: [Office for National Statistics. Deaths registered weekly in England and Wales, provisional: Scheduled update/revision	14 July 2020](https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/deaths/datasets/weeklyprovisionalfiguresondeathsregisteredinenglandandwales/2020)
+
+	
+```{r comment='#',echo=FALSE}
+
+# load dataset
+dat<-read.csv("https://people.bath.ac.uk/kai21/COVID19_MARCH_JUNE.csv",header=TRUE)
+
+# knitr::kable(head(dat), format = 'html')
+DT::datatable(
+ head(dat,40),
+  fillContainer = FALSE, options = list(pageLength = 10)
+)
+
+
+
+```
+
+
+ 
+ As described in the [lecture notes](https://moodle.bath.ac.uk/pluginfile.php/1607293/mod_resource/content/5/_book/datasets-and-models.html#statistical-modelling-of-covid-19-deaths), let the average number of deaths per 100,000 be modelled by  $$\rho_a=\exp(\theta_1+\theta_2\,a)$$ where $a$ represents age and  $\bm{\theta}^T=(\theta_1,\theta_2)$ is the vector of unknown parameters.
+
+
+### Question 1
+
+Plot the data as a scatterplot of the natural log of the mortality rate (per 100k) vs age, for both men and women. Based on the data, what can you say about the relationship between  mortlity rate and age in each of the two groups of mean and women? Use those relationships to compute (for each group) starting values to feed into an iterative algorithm to maximise the likelihood function.
+
+
+
+### Question 2
+
+ Plot the contours of the negative log likelihood function in the ranges $\theta_1\in (-5,-1)$ and $\theta_2\in(0.05,0.2)$ for both men and women. Also plot the points corresponding to the starting values computed above. Are these good approximations to the minima?
+
+
+### Question 3
+
+ For both men and women, implement  modified  Newton's algorithm (eigenvalue modification) to find the maximum likelihood estimator $\hat{\bm{\theta}}$ of $\bm{\theta}$. Are these estimates  similar for  men and women ? Report the number of iterations  and the number of backtrackings. 
+
+
+### Question 4
+
+In the scatterplot from Question 1, for both men and women, add the log of the fitted mean curve which is given by:
+$$\log \exp(\hat{\theta}_1+\hat{\theta}_2\,a)=\hat{\theta}_1+\hat{\theta}_2\,a$$
+so is a straight line. Comment on the fit of this line to the data points in each group.
+
+
+### Question 5
+
+In the previous questions, we have considered men and women separately . Consider now the following model for the mean number of deaths, that integrates the effect of sex:
+
+$$\mbox{mortality rate per 100k}=\exp(\theta_1+\theta_2\, age+\theta_3\,\delta_{male})$$
+where $\delta_{male}=1$ if male and $\delta_{male}=0$ if female.
+
+This model assumes that the age coefficients are the same for both men and women and the intercepts are different.
+
+
+* Compute a starting value $\bm{\theta}_0$ exploiting the log-linear form of the mean model.
+
+* Using modified Newton's algorithm, compute the maximum likelihood estimator of the unknown parameter $\bm{\theta}^T=(\theta_1,\theta_2,\theta_3)$ 
+
+
+### Question 6
+
+Using the maximum likelihood estimator found in the previous question, answer the following questions:
+
+On average, men experienced how much additional risk compared with women the same age?
+
+The COVID-19 mortality rates:  
+
+* were about how much higher for each year older? 
+* double for every  $X$  years of extra age on average? How much is $X$
+
