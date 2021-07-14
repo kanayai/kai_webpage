@@ -29,7 +29,7 @@ enableEmoji = true
     
 [params]
   orgName = "Gordito made"
-  orgLocal = "Anywhere"
+  orgLocal = "UK and Mexico"
   description = "A modern, beautiful, and easily configurable blog theme for Hugo."
   favicon = "/img/favicon.ico"
   logo = "/img/blogophonic-mark-dark.png"
